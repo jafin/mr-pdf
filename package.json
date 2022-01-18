@@ -2,10 +2,13 @@
   "name": "mr-pdf",
   "version": "1.0.7",
   "description": "Generate pdf from document",
-  "main": "lib/cli.js",
+  "exports": "./lib/cli.js",
   "scripts": {
     "dev": "tsc --watch",
     "build": "tsc",
+    "start": "node --loader ts-node/esm ./src/cli.ts",
+    "demo": "npm run start --  --initialDocURLs=\"https://docusaurus.io/docs/\" --contentSelector=\"article\" --paginationSelector=\".pagination-nav__item--next > a\" --excludeSelectors=\".margin-vert--xl a\" --coverImage=\"https://docusaurus.io/img/docusaurus.png\" --coverTitle=\"Docusaurus v2\"",
+    "demo2": "npm run start --  --initialDocURLs=\"https://docsearch.algolia.com/docs/what-is-docsearch\" --contentSelector=\"article\" --paginationSelector=\".pagination-nav__item--next > a\" --excludeSelectors=\".margin-vert--xl a\" --coverImage=\"https://docusaurus.io/img/docusaurus.png\" --coverTitle=\"Docusaurus v2\"",
     "prepare": "tsc",
     "lint": "eslint \"*/**/*.{js,ts}\"",
     "lintfix": "eslint \"*/**/*.{js,ts}\" --fix"
@@ -27,23 +30,23 @@
   "author": "Kohhee Peace <kohheepeace@gmail.com> (http://github.com/kohheePeace)",
   "license": "MIT",
   "dependencies": {
-    "chalk": "^3.0.0",
-    "commander": "^4.1.1",
-    "puppeteer": "^2.1.1"
+    "chalk": "^4.1.2",
+    "commander": "^8.3.0",
+    "puppeteer": "^13.1.1"
   },
   "devDependencies": {
-    "@tsconfig/node14": "^1.0.0",
+    "@tsconfig/node16": "^1.0.2",
     "@types/node": "^15.6.1",
-    "@types/puppeteer": "^2.0.1",
-    "@typescript-eslint/eslint-plugin": "^3.9.0",
-    "@typescript-eslint/parser": "^3.9.0",
-    "eslint": "^7.7.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-prettier": "^3.1.4",
+    "@typescript-eslint/eslint-plugin": "^5.10.0",
+    "@typescript-eslint/parser": "^5.10.0",
+    "eslint": "^8.7.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
     "husky": "^4.2.5",
-    "lint-staged": "^10.2.11",
-    "prettier": "2.0.5",
-    "typescript": "^3.8.3"
+    "lint-staged": "^12.1.7",
+    "prettier": "^2.5.1",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.4"
   },
   "files": [
     "lib/**/*",

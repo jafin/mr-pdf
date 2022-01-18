@@ -1,13 +1,12 @@
-#!/usr/bin/env node
-
-import chalk = require('chalk');
-import program = require('commander');
-
+import chalk from 'chalk';
+import { Command } from 'commander';
 import { generatePDF, generatePDFOptions } from './utils';
 import {
   commaSeparatedList,
   generatePuppeteerPDFMargin,
 } from './commander-options';
+
+const program = new Command();
 
 program
   .name('mr-pdf')
@@ -52,7 +51,7 @@ program
         console.log(chalk.green('Finish generating PDF!'));
         process.exit(0);
       })
-      .catch((err: { stack: any }) => {
+      .catch((err: { stack: unknown }) => {
         console.error(chalk.red(err.stack));
         process.exit(1);
       });

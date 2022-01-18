@@ -1,5 +1,5 @@
-import chalk = require('chalk');
-import puppeteer = require('puppeteer');
+import chalk from 'chalk';
+import puppeteer from 'puppeteer';
 
 let contentHTML = '';
 export interface generatePDFOptions {
@@ -9,7 +9,7 @@ export interface generatePDFOptions {
   pdfMargin: puppeteer.PDFOptions['margin'];
   contentSelector: string;
   paginationSelector: string;
-  pdfFormat: puppeteer.PDFFormat;
+  pdfFormat: puppeteer.PaperFormat;
   excludeSelectors: Array<string>;
   cssStyle: string;
   puppeteerArgs: Array<string>;
@@ -45,7 +45,6 @@ export async function generatePDF({
     while (nextPageURL) {
       console.log();
       console.log(chalk.cyan(`Retrieving html from ${nextPageURL}`));
-      console.log();
 
       // Go to the page specified by nextPageURL
       await page.goto(`${nextPageURL}`, {
@@ -55,9 +54,8 @@ export async function generatePDF({
       // Get the HTML string of the content section.
       const html = await page.evaluate(
         ({ contentSelector }) => {
-          const element: HTMLElement | null = document.querySelector(
-            contentSelector,
-          );
+          const element: HTMLElement | null =
+            document.querySelector(contentSelector);
           if (element) {
             // Add pageBreak for PDF
             element.style.pageBreakAfter = 'always';

@@ -1,9 +1,13 @@
 {
-  "extends": "@tsconfig/node14/tsconfig.json",
+  "extends": "@tsconfig/node16/tsconfig.json",
   "compilerOptions": {
-    "lib": ["dom"],
+    "module": "CommonJS",
+    "target": "ESNext",
+    "moduleResolution": "node",
+    "lib": ["dom", "ES5"],
     "rootDir": "src",
     "outDir": "lib",
+    "esModuleInterop": true,
     "resolveJsonModule": true
   },
   "include": ["src/**/*"],
