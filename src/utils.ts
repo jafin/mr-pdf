@@ -1,25 +1,10 @@
 import chalk from 'chalk';
 import puppeteer from 'puppeteer';
+import { generatePDFOptions } from './generatePDFOptions';
+import HTMLtoDOCX from 'html-to-docx';
+import fs from 'fs';
 
 let contentHTML = '';
-export interface generatePDFOptions {
-  initialDocURLs: Array<string>;
-  excludeURLs: Array<string>;
-  outputPDFFilename: string;
-  pdfMargin: puppeteer.PDFOptions['margin'];
-  contentSelector: string;
-  paginationSelector: string;
-  paperFormat: puppeteer.PaperFormat;
-  excludeSelectors: Array<string>;
-  cssStyle: string;
-  puppeteerArgs: Array<string>;
-  coverTitle: string;
-  coverImage: string;
-  disableTOC: boolean;
-  coverSub: string;
-  waitForRender: number;
-}
-
 export async function generatePDF({
   initialDocURLs,
   excludeURLs,
@@ -176,6 +161,31 @@ export async function generatePDF({
   if (cssStyle) {
     await page.addStyleTag({ content: cssStyle });
   }
+
+  const htmlString = await page.content();
+  const headerHTMLString = '';
+  const footerHTMLString = '';
+  const fileBuffer = await HTMLtoDOCX(
+    htmlString,
+    headerHTMLString,
+    { footer: false, header: false },
+    footerHTMLString,
+  );
+
+  fs.writeFile('test.htm', htmlString, (error) => {
+    if (error) {
+      console.log('error writing html');
+    }
+    console.log('saved html');
+  });
+
+  fs.writeFile('test.docx', fileBuffer as any, (error) => {
+    if (error) {
+      console.log('DocX Creation failed');
+      return;
+    }
+    console.log('success saving docx');
+  });
 
   await page.pdf({
     path: outputPDFFilename,

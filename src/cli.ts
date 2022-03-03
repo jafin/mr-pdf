@@ -3,7 +3,8 @@
 import chalk from 'chalk';
 import program from 'commander';
 
-import { generatePDF, generatePDFOptions } from './utils';
+import { generatePDF } from './utils';
+import { generatePDFOptions } from './generatePDFOptions';
 import {
   commaSeparatedList,
   generatePuppeteerPDFMargin,
@@ -41,7 +42,7 @@ program
     'set margin around PDF file',
     generatePuppeteerPDFMargin,
   )
-  .option('--pdfFormat <format>', 'pdf format ex: A3, A4...')
+  .option('--paperFormat <format>', 'pdf format ex: A3, A4...')
   .option('--coverTitle <title>', 'title for PDF cover')
   .option('--coverImage <src>', 'image for PDF cover. *.svg file not working!')
   .option('--disableTOC', 'disable table of contents')
